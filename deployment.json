@@ -1,0 +1,75 @@
+Deploy exercício
+{
+  "apiVersion": "apps/v1",
+  "kind": "Deployment",
+  "metadata": {
+    "name": "python",
+    "namespace": "default",
+    "labels": {
+      "app": "python",
+      "image": "tborba_python_hello_world"
+    },
+    "annotations": {
+    }
+  },
+  "spec": {
+    "replicas": 2,
+    "selector": {
+      "matchLabels": {
+        "app": "python"
+      }
+    },
+    "template": {
+      "metadata": {
+        "labels": {
+          "app": "python",
+          "image": "tborba_python_hello_world"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "python",
+            "image": "tborba/python-hello-worl",
+            "ports": [
+              {
+                "containerPort": 8080,
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "limits": {
+                "memory": "1Gi"
+              },
+              "requests": {
+                "cpu": "1",
+                "memory": "256Mi"
+              }
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "imagePullPolicy": "IfNotPresent"
+          }
+        ],
+        "restartPolicy": "Always",
+        "terminationGracePeriodSeconds": 30,
+        "dnsPolicy": "ClusterFirst",
+        "securityContext": {},
+        "imagePullSecrets": [
+          {
+            "name": "pessoafisica.registrykey"
+          }
+        ],
+        "schedulerName": "default-scheduler"
+      }
+    },
+    "strategy": {
+      "type": "RollingUpdate",
+      "rollingUpdate": {
+        "maxUnavailable": 1,
+        "maxSurge": 1
+      }
+    },
+    "revisionHistoryLimit": 3
+  }
+}
