@@ -1,0 +1,21 @@
+{
+    "apiVersion": "autoscaling/v1",
+    "kind": "HorizontalPodAutoscaler",
+    "metadata": {
+        "labels": {
+            "app": "python"
+        },
+        "name": "python",
+        "namespace": "default"
+    },
+    "spec": {
+        "maxReplicas": 100,
+        "minReplicas": 3,
+        "scaleTargetRef": {
+            "apiVersion": "apps/v1",
+            "kind": "Deployment",
+            "name": "python"
+        },
+        "targetCPUUtilizationPercentage": 60
+    }
+}

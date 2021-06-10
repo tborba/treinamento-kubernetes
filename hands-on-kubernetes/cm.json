@@ -1,0 +1,11 @@
+{
+    "apiVersion": "v1",
+    "data": {
+        "ENV_KEY": "ENV_VALUE"
+    },
+    "kind": "ConfigMap",
+    "metadata": {
+        "name": "python",
+        "namespace": "default"
+    }
+}
